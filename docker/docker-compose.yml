@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  nginx_img:
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx_con
+    image: nginx:1.13.8
+    volumes:
+    - ..:/usr/share/nginx/html
+    - ../logs/nginx:/var/log/nginx
+    ports:
+    - 1000:80
+    networks:
+      public_net:
+        ipv4_address: 192.168.0.11
+
+networks:
+  public_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 192.168.0.0/24
